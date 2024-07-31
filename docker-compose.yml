@@ -1,0 +1,86 @@
+# This docker-compose file creates a network with two services:
+# db: MySQL database service
+# phpmyadmin: PHPMyAdmin service for managing the database
+
+services:
+  db:
+    # Use official MySQL image
+    image: mysql
+    # Restart the service unless explicitly stopped
+    restart: unless-stopped
+    # Set the root password for MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    # Use a volume to persist the database data
+    volumes:
+      - db:/var/lib/mysql
+    # Add the service to the 'microservices-net' network
+    networks:
+      - microservices-net
+    container_name: db
+
+    
+  phpmyadmin:
+    # Use official PHPMyAdmin image
+    image: phpmyadmin
+    restart: unless-stopped
+    # Expose the port 5050 for PHPMyAdmin
+    ports:
+      - 5050:80
+    # Set the environment variables for PHPMyAdmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - microservices-net
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.4
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - microservices-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.4
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - microservices-net
+
+  config:
+    image: configserver1:latest
+    container_name: configserver
+    networks:
+      - microservices-net
+
+  eureka:
+    image: eureka-server:latest
+    container_name: eureka
+    ports: 
+      - 8761:8761
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8888
+      
+
+networks:
+  microservices-net:
+    # Use bridge network driver
+    driver: bridge
+volumes:
+  db:
