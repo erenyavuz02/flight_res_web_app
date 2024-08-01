@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -61,6 +63,27 @@ public class UserController {
         }
     }
 
+
+    /**
+     * This method retrieves a user by their username.
+     * 
+     * it cannot be accessed by gateway. Only other microservices can access it.
+     * 
+     * 
+     * @param username The username of the user to retrieve.
+     */
+
+    @GetMapping("/get")
+    public ResponseEntity<User> getMethodName(@RequestParam String username) {
+        
+        User user = userService.findByUsername(username);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
 
     
     

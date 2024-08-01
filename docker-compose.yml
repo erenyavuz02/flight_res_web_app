@@ -18,6 +18,8 @@ services:
     networks:
       - microservices-net
     container_name: db
+    ports:
+      - 3306:3306
 
     
   phpmyadmin:

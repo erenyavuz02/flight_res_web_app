@@ -49,6 +49,23 @@ public class FlightController {
 
         return ResponseEntity.ok(flights);
     }
+
+
+    /**
+     * Get flight by id
+     * This method cannot be called by gateway, only for other microservices
+     * 
+     * @param flightId
+     * @return
+     */
+    @GetMapping("/searchByFlightId")
+    public ResponseEntity<Flight> getFlightById(@RequestParam Long flightId) {
+        Flight flight = flightService.findById(flightId);
+        if (flight == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(flight);
+    }
     
 
 }

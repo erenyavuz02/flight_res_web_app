@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: reservation_app
+
+user:
+    api:
+        host: user
+        port: 8090
+        url: http://${externalAPI.user_app.host}:${externalAPI.user_app.port}/api/user/  
+flight:
+    api:
+        host: flight
+        port: 8091
+        requestURL: http://${externalAPI.flight_app.host}:${externalAPI.flight_app.port}/api/flights/  
