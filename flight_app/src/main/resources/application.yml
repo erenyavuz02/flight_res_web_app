@@ -3,3 +3,10 @@ spring:
             name: flight_app
     config:
         import: optional:configserver:http://configserver:8888
+
+
+reservation:
+    api:
+        host: 8092
+        port: reservation
+        url: 

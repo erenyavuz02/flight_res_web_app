@@ -1,4 +1,4 @@
-package com.hitit.project.demo.controller;
+package com.hitit.project.microservices.reservation_app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hitit.project.demo.entity.Reservation;
-import com.hitit.project.demo.service.ReservationService;
+import com.hitit.project.microservices.reservation_app.entity.Reservation;
+import com.hitit.project.microservices.reservation_app.service.ReservationService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController

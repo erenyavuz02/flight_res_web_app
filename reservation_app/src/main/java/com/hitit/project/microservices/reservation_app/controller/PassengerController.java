@@ -1,4 +1,4 @@
-package com.hitit.project.demo.controller;
+package com.hitit.project.microservices.reservation_app.controller;
 
 
 import java.util.List;
@@ -6,23 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hitit.project.demo.dto.request.PassengerRequest;
-import com.hitit.project.demo.entity.Passenger;
-import com.hitit.project.demo.entity.PassengerID;
-import com.hitit.project.demo.entity.Reservation;
-import com.hitit.project.demo.service.FlightDetailsService;
-import com.hitit.project.demo.service.PassengerService;
-import com.hitit.project.demo.service.ReservationService;
-import com.hitit.project.demo.service.ReservedFlightService;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.hitit.project.microservices.reservation_app.dto.PassengerRequest;
+import com.hitit.project.microservices.reservation_app.entity.Passenger;
+import com.hitit.project.microservices.reservation_app.entity.PassengerID;
+import com.hitit.project.microservices.reservation_app.entity.Reservation;
+import com.hitit.project.microservices.reservation_app.service.APIService.FlightAPIService;
+import com.hitit.project.microservices.reservation_app.service.PassengerService;
+import com.hitit.project.microservices.reservation_app.service.ReservationService;
+import com.hitit.project.microservices.reservation_app.service.ReservedFlightService;
 
 
 @RestController
@@ -42,7 +41,7 @@ public class PassengerController {
 
 
     @Autowired
-    private FlightDetailsService flightDetailsService;
+    private FlightAPIService flightAPIService;
 
     @PostMapping("/create")
     public ResponseEntity<Passenger> savePassenger(
@@ -60,7 +59,7 @@ public class PassengerController {
 
             reservedFlightService.getReservedFlightsByPnrCode(reservation.getPNR()).forEach(reservedFlight -> {
                 System.out.println("DEcreasing seats of Flight id: " + reservedFlight.getFlight().getF_id() + " with Cabin: " + reservedFlight.getCabin());
-                flightDetailsService.decreaseAvailableSeats(reservedFlight.getFlight().getF_id(), reservedFlight.getCabin());
+                flightAPIService.decreaseAvailableSeats(reservedFlight.getFlight().getF_id(), reservedFlight.getCabin());
             });
 
             return ResponseEntity.ok(savedPassenger);

@@ -40,9 +40,11 @@ public class FlightDetailsService {
         return flightDetailsRepository.getByFlightId(flightId);
     }
 
-    public void decreaseAvailableSeats(Long f_id, String cabin) {
-
-        flightDetailsRepository.decreaseAvailableSeats(f_id, cabin);
+    public void decreaseAvailableSeats(Long flightId, String cabin) {
+        if (flightId == null || cabin == null) {
+            throw new IllegalArgumentException("Flight ID and cabin cannot be null");
+        }
+        flightDetailsRepository.decreaseAvailableSeats(flightId, cabin);
     }
 
     

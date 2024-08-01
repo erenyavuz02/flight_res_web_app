@@ -6,7 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hitit.project.microservices.reservation_app.entity.Flight;
+import com.hitit.project.microservices.reservation_app.entity.Reservation;
+import com.hitit.project.microservices.reservation_app.entity.ReservedFlight;
 import com.hitit.project.microservices.reservation_app.repository.ReservedFlightRepository;
+import com.hitit.project.microservices.reservation_app.service.APIService.FlightAPIService;
 
 @Service
 public class ReservedFlightService {
@@ -15,11 +19,9 @@ public class ReservedFlightService {
     ReservedFlightRepository  reservedFlightRepository;
 
 
-    //TODO: change this with flightApiService 
+
     @Autowired
-    FlightService flightService;
-
-
+    FlightAPIService flightAPIService;
 
 
     public void save(ReservedFlight reservedFlight) {
@@ -31,7 +33,7 @@ public class ReservedFlightService {
         if ( flightId == null || cabin == null) {
             throw new IllegalArgumentException("Parameter cannot be null");
         }
-        Flight flight = flightService.findById(flightId);
+        Flight flight = flightAPIService.findById(flightId);
         if (flight == null) {
             throw new IllegalArgumentException("Flight not found");
         }
@@ -54,7 +56,7 @@ public class ReservedFlightService {
         List<Long> flightIds = reservedFlightRepository.getFlightIdsByPnrCode(pnr_code);
         List<Flight> flights = new ArrayList<>();
         for (Long flightId : flightIds) {
-            Flight flight = flightService.findById(flightId);
+            Flight flight = flightAPIService.findById(flightId);
             flights.add(flight);
         }
         return flights;

@@ -1,17 +1,19 @@
-package com.hitit.project.demo.controller;
+package com.hitit.project.microservices.reservation_app.controller;
 
-import org.apache.catalina.connector.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.hitit.project.demo.entity.Reservation;
-import com.hitit.project.demo.entity.ReservedFlight;
-import com.hitit.project.demo.service.ReservationService;
-import com.hitit.project.demo.service.ReservedFlightService;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.hitit.project.microservices.reservation_app.entity.Reservation;
+import com.hitit.project.microservices.reservation_app.entity.ReservedFlight;
+import com.hitit.project.microservices.reservation_app.service.ReservationService;
+import com.hitit.project.microservices.reservation_app.service.ReservedFlightService;
+
+
 
 
 @Controller
@@ -28,7 +30,6 @@ public class ReservedFlightController {
 
     @PostMapping("/reserveFlight")
     public ResponseEntity<ReservedFlight> reserveFlight(@RequestParam("PNR_code") String PNR, @RequestParam("flightId") Long flightId, @RequestParam("cabin") String cabin) {
-        //TODO: process POST request
         
         System.out.println("PNR: " + PNR + "flightId: " + flightId + "cabin: " + cabin);
         Reservation reservation = reservationService.findByPNR(PNR);

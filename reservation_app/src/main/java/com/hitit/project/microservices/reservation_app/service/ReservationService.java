@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.hitit.project.microservices.reservation_app.entity.Reservation;
 import com.hitit.project.microservices.reservation_app.entity.User;
 import com.hitit.project.microservices.reservation_app.repository.ReservationRepository;
+import com.hitit.project.microservices.reservation_app.service.APIService.UserAPIService;
 
 
 @Service
