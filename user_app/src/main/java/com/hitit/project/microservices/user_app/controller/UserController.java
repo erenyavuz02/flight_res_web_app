@@ -85,6 +85,34 @@ public class UserController {
     }
     
 
+
+    /**
+     * This function validates if the sent user information exists
+     * 
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return ResponseEntity with the validation result
+     */
+    @GetMapping("/validate")
+    public ResponseEntity<UserDetails> getMethodName(
+        @RequestParam String username,
+        @RequestParam String password
+    ) {
+
+        if (username == null || password == null) {
+            throw new CustomerNotFoundException("Username and password cannot be null");
+        }
+
+        
+        UserDetails userDetails =userService.getUserDetails(username, password);
+
+
+        System.out.println(userDetails);
+
+        return ResponseEntity.ok(userDetails);
+        // Check if the user is valid
+        
+    }
     
     
     

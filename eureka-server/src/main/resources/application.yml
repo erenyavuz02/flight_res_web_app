@@ -1,8 +1,6 @@
 spring:
     config:
-        import: optional:configserver:http://configserver:8888
-        enabled: true
-        uri: http://configserver:8888
-spring:
+        import: optional:configserver:http://localhost:8888
+
     application:
         name: eureka-server

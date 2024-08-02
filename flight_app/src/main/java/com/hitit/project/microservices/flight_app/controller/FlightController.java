@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hitit.project.microservices.flight_app.dto.FlightRequest;
 import com.hitit.project.microservices.flight_app.entity.Flight;
 import com.hitit.project.microservices.flight_app.service.FlightService;
 
@@ -27,9 +28,7 @@ public class FlightController {
     private FlightService flightService;
     
 
-    //TODO: replace reserverFlight service with external api service for it
-    @Autowired
-    private ReservedFlightService reservedFlightService;
+   
 
     //TODO: create FlightRequest file
     @PostMapping("/search")
@@ -38,18 +37,7 @@ public class FlightController {
         return flightService.searchFlights( flightRequest.getDeparturePort(), flightRequest.getArrivalPort(), flightRequest.getDepartureDate(), flightRequest.getAdults(), flightRequest.getChildren(), flightRequest.getInfants());
     }
 
-    @GetMapping("/searchByPNR")
-    public ResponseEntity<List<Flight>> requestMethodName(@RequestParam String pnr_code) {
-
-        List<Flight> flights = reservedFlightService.getFlightsByPnrCode(pnr_code);
-
-        if (flights.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(flights);
-    }
-
+   
 
     /**
      * Get flight by id
