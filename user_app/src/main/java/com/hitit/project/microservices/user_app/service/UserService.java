@@ -1,9 +1,13 @@
 package com.hitit.project.microservices.user_app.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hitit.project.microservices.user_app.dto.UserDetails;
 import com.hitit.project.microservices.user_app.entity.User;
+import com.hitit.project.microservices.user_app.exception.InvalidUserException;
 import com.hitit.project.microservices.user_app.repository.UserRepository;
 
 
@@ -35,6 +39,24 @@ public class UserService {
     }
 
 
+     public UserDetails getUserDetails(String username, String password) {
+        Optional<User> userEntity = userRepository.findByUsername(username);
+
+        if (!userEntity.isPresent()) {
+            throw new InvalidUserException("User not found");
+        }
+
+        //TODO: add more information to the user entity
+        UserDetails userDetails = UserDetails.builder()
+            .name(userEntity.get().getName())
+            .surname(userEntity.get().getSurname())
+            .email(userEntity.get().getEmail())
+            .build();
+
+
+        return userDetails;
+
+    }
     
 }
 

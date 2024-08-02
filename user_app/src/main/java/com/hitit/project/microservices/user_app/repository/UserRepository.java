@@ -18,7 +18,7 @@ import com.hitit.project.microservices.user_app.entity.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     @SuppressWarnings("null")
     Optional<User> findById(@NonNull Long id);

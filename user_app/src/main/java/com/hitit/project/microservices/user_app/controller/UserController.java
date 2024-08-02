@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hitit.project.microservices.user_app.dto.LoginRequest;
+import com.hitit.project.microservices.user_app.dto.UserDetails;
 import com.hitit.project.microservices.user_app.entity.User;
 import com.hitit.project.microservices.user_app.service.UserService;
 
@@ -100,11 +101,11 @@ public class UserController {
     ) {
 
         if (username == null || password == null) {
-            throw new CustomerNotFoundException("Username and password cannot be null");
+            throw new IllegalArgumentException("Username and password cannot be null");
         }
 
         
-        UserDetails userDetails =userService.getUserDetails(username, password);
+        UserDetails userDetails = userService.getUserDetails(username, password);
 
 
         System.out.println(userDetails);
