@@ -112,16 +112,19 @@
         <a href="register.html" class="register-link">Register if you do not have an account</a>
     </div>
 
-    <script>
+    <script src="./js/config.js"></script>
+    <script type ="text/javascript">
         /**
          * Function to handle user login
          */
+
+
         function loginUser() {
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
             
             // Send a POST request to the server with the username and password
-            fetch('/login', {
+            fetch('${config.user_app.url}/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

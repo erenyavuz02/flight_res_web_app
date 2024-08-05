@@ -26,7 +26,7 @@ function displayFlightResults(flights, containerId, isReturn) {
         flightDiv.innerHTML = flightDetails;
 
         // Fetch flight details for each cabin
-        fetch(`/api/flightDetails/?flightId=${flight.f_id}`)
+        fetch(`http://localhost:8091/api/flightDetails/?flightId=${flight.f_id}`)
         .then(response => response.json())
         .then(details => {
             console.log(details);

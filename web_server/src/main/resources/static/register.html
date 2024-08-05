@@ -111,6 +111,8 @@
     </div>
 
     <script>
+        import { config } from './js/config.js';
+
         /**
          * Function to register a new user.
          * Sends a POST request to the '/register' endpoint with the user's details.
@@ -123,7 +125,7 @@
             var userData = JSON.stringify({ username: username, password: password, email: email });
             console.log(userData); // Log the data to be sent
 
-            fetch('/register', {
+            fetch('${config.user_app.url}/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
