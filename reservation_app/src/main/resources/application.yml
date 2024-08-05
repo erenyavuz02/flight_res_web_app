@@ -1,14 +1,17 @@
 spring:
-  application:
-    name: reservation_app
+    application:
+        name: reservation_app
+    config:
+        import: optional:configserver:http://localhost:8888
+
 
 user:
     api:
-        host: user
+        host: localhost
         port: 8090
         url: http://${user.api.host}:${user.api.port}/api/user/  
 flight:
     api:
-        host: flight
+        host: localhost
         port: 8091
         url: http://${flight.api.host}:${flight.api.port}/api/flights/  

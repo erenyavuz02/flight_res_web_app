@@ -52,6 +52,16 @@
             "projectName": "flight_app",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ReservationAppApplication<reservation_app>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.hitit.project.microservices.reservation_app.ReservationAppApplication",
+            "projectName": "reservation_app",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

@@ -23,7 +23,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, String
      * @return a list of Reservation objects with the specified PNR
      */
     Optional<Reservation> findByPNR(String PNR);
-    @Query("SELECT r FROM Reservation r WHERE r.user.u_id = :u_id")
+    @Query("SELECT r FROM Reservation r WHERE r.u_id = :u_id")
     List<Reservation> findByUserId(Long u_id);
 
 }

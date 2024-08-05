@@ -1,0 +1,19 @@
+server:
+  port: 8092
+
+
+
+spring.:
+  datasource:
+    url:  jdbc:mysql://localhost:3306/reservation_app
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true

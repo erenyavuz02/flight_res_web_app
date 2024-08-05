@@ -2,17 +2,18 @@ package com.hitit.project.microservices.reservation_app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hitit.project.microservices.reservation_app.dto.ReservationRequest;
 import com.hitit.project.microservices.reservation_app.entity.Reservation;
+import com.hitit.project.microservices.reservation_app.service.APIService.UserAPIService;
 import com.hitit.project.microservices.reservation_app.service.ReservationService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 
 @RestController
@@ -23,12 +24,16 @@ public class ReservationController {
     private ReservationService reservationService;
 
 
+    @Autowired
+    private UserAPIService userApiService;
 
-@PostMapping("/create_reservation")
-    public ResponseEntity<String> createReservation(HttpServletRequest request) {
+    @PostMapping("/create_reservation")
+    public ResponseEntity<String> createReservation(@RequestBody ReservationRequest reservationRequest) {
 
-        HttpSession session = request.getSession();
-        String username  = (String)session.getAttribute("user");
+        String username  = reservationRequest.username();
+        String password = reservationRequest.password();
+
+        userApiService.validateUser(username, password);
 
         System.out.println("u_id: " + username);
         Reservation reservation = reservationService.createReservation(username);

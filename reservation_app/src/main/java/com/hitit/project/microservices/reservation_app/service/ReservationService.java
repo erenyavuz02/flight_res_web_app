@@ -12,26 +12,20 @@ import com.hitit.project.microservices.reservation_app.entity.User;
 import com.hitit.project.microservices.reservation_app.repository.ReservationRepository;
 import com.hitit.project.microservices.reservation_app.service.APIService.UserAPIService;
 
-
 @Service
 public class ReservationService {
-    
 
     @Autowired
     private ReservationRepository reservationRepository;
 
- 
     @Autowired
     private UserAPIService userService;
-
-
 
     @Autowired
     private PassengerService passengerService;
 
     @Autowired
     private ReservedFlightService reservedFlightService;
-    
 
     public Optional<Reservation> save(Reservation reservation) {
         reservationRepository.save(reservation);
@@ -42,7 +36,6 @@ public class ReservationService {
         return reservationRepository.findByUserId(u_id);
     }
 
-
     public Reservation findByPNR(String PNR) {
         Optional<Reservation> reservationOptional = reservationRepository.findByPNR(PNR);
         if (reservationOptional.isPresent()) {
@@ -51,11 +44,11 @@ public class ReservationService {
         return null;
     }
 
-    public Reservation createReservation( String username) {
-        
+    public Reservation createReservation(String username) {
 
+        // TODO: fix foreign key of reservation
         User user = userService.findByUsername(username);
-        System.out.println(user);
+        System.out.println(user + "Here it is");
         String pnr = null;
         while (pnr == null) {
             pnr = generatePNR();
@@ -64,7 +57,7 @@ public class ReservationService {
             }
         }
         Reservation reservation = new Reservation();
-        reservation.setUser(user);
+        reservation.setU_id(user.getU_id());
         reservation.setPNR(pnr);
         reservation.setStatus("hold");
         reservationRepository.save(reservation);
@@ -72,19 +65,15 @@ public class ReservationService {
         return reservation;
     }
 
-
-
-
     // Characters to be used in the PNR code
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int PNR_LENGTH = 6;
     private static final Random random = new Random();
 
-    public  String generatePNR() {
+    public String generatePNR() {
 
         StringBuilder pnrCode = new StringBuilder(PNR_LENGTH);
 
-        
         for (int i = 0; i < PNR_LENGTH; i++) {
             int index = random.nextInt(CHARACTERS.length());
             pnrCode.append(CHARACTERS.charAt(index));
@@ -108,7 +97,5 @@ public class ReservationService {
 
         return reservation;
     }
-
-
 
 }

@@ -4,12 +4,16 @@ package com.hitit.project.microservices.reservation_app.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.*;
 
 @Entity
 @Table(name = "reservations")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Reservation {
     
 
@@ -17,37 +21,16 @@ public class Reservation {
     private String PNR;
 
     private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "u_id")
-    private User user;
+    
+    private Long u_id;
 
 
-    public String getPNR() {
-        return PNR;
-    }
-
-    public void setPNR(String pNR) {
-        PNR = pNR;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
 
+
+
+
+    
 
 
     
