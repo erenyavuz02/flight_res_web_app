@@ -30,14 +30,18 @@ public class FlightController {
 
    
 
-    //TODO: create FlightRequest file
     @PostMapping("/search")
     public List<Flight> searchFlights(@RequestBody FlightRequest flightRequest) {
-        System.out.println(flightRequest);
-        return flightService.searchFlights( flightRequest.getDeparturePort(), flightRequest.getArrivalPort(), flightRequest.getDepartureDate(), flightRequest.getAdults(), flightRequest.getChildren(), flightRequest.getInfants());
+        return flightService.searchFlights(
+                flightRequest.getDeparturePort(),
+                flightRequest.getArrivalPort(),
+                flightRequest.getDepartureDate(),
+                flightRequest.getAdults(),
+                flightRequest.getChildren(),
+                flightRequest.getInfants());
     }
+    //TODO: create FlightRequest file
 
-   
 
     /**
      * Get flight by id

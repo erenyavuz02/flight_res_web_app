@@ -1,5 +1,6 @@
 package com.hitit.project.microservices.flight_app.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,15 +38,46 @@ public class PortService {
 
 
     public void populatePorts() {
-        List<Port> ports = Arrays.asList(
-            new Port( "Istanbul", "Turkey",  "Istanbul Airport","IST"),
-            new Port("Ankara", "Turkey", "Esenboga Airport", "ESB"),
-            new Port( "Izmir", "Turkey", "Adnan Menderes Airport", "ADB"),
-            new Port( "Antalya", "Turkey", "Antalya Airport", "AYT"),
-            new Port( "Bodrum", "Turkey", "Milas-Bodrum Airport", "BJV")
-        );
+
+        Port port = new Port();
+        List<Port> ports = new ArrayList<>();
+
+        port.setCity("Istanbul");
+        port.setCountry("Turkey");
+        port.setPortName("Istanbul Airport");
+        port.setCode("IST");
+        ports.add(port);
+
+        port = new Port();
+        port.setCity("Ankara");
+        port.setCountry("Turkey");
+        port.setPortName("Esenboga Airport");
+        port.setCode("ESB");
+        ports.add(port);
+
+        port = new Port();
+        port.setCity("Izmir");
+        port.setCountry("Turkey");
+        port.setPortName("Adnan Menderes Airport");
+        port.setCode("ADB");
+        ports.add(port);
+
+        port = new Port();
+        port.setCity("Antalya");
+        port.setCountry("Turkey");
+        port.setPortName("Antalya Airport");
+        port.setCode("AYT");
+        ports.add(port);
+
+        port = new Port();
+        port.setCity("Bodrum");
+        port.setCountry("Turkey");
+        port.setPortName("Milas-Bodrum Airport");
+        port.setCode("BJV");
+        ports.add(port);
 
         portRepository.saveAll(ports);
+        
     }
     
 }

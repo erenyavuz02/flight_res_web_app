@@ -118,7 +118,7 @@ public class UserController {
     
     
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody User user){
         try {
             userService.save(user);
             var successResponse = Map.of("message", "User registered successfully!");

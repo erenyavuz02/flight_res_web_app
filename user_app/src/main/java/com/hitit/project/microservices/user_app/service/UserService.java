@@ -20,8 +20,16 @@ public class UserService {
 
    
     public User save(User user) {
-        return userRepository.save(user);
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
+        try {
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save user", e);
+        }
     }
+ 
 
     
     public Optional<User> findByUsername(String username) {

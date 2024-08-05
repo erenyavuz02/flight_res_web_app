@@ -44,6 +44,11 @@ public class FlightDetailsService {
         if (flightId == null || cabin == null) {
             throw new IllegalArgumentException("Flight ID and cabin cannot be null");
         }
+
+        if (!cabin.equals("Economy") && !cabin.equals("Business") && !cabin.equals("First Class")) {
+            throw new IllegalArgumentException("Cabin must be 'Economy', 'Business', or 'First Class'");
+        }
+
         flightDetailsRepository.decreaseAvailableSeats(flightId, cabin);
     }
 
