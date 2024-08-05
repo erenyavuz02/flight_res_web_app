@@ -2,8 +2,10 @@ package com.hitit.project.microservices.user_app.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,18 +43,18 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
-        System.out.println(loginRequest.getUsername());
-        User user = userService.findByUsername(loginRequest.getUsername());
-        System.out.println(user + "user entered");
-        if (user != null && user.getPassword().equals(loginRequest.getPassword())) {
-            System.out.println("Login successful!");
+        Optional<User> user = userService.findByUsername(loginRequest.getUsername());
+
+        if (user.isPresent() && user.get().getPassword().equals(loginRequest.getPassword())) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", loginRequest.getUsername());
+            session.setAttribute("username", loginRequest.getUsername());
             return ResponseEntity.ok("Login successful!");
         } else {
-            return ResponseEntity.status(401).body("Invalid username or password.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         }
     }
+
+
 
     @GetMapping("/checkSession")
     public String getMethodName(HttpServletRequest request) {
@@ -75,15 +77,13 @@ public class UserController {
      */
 
     @GetMapping("/get")
-    public ResponseEntity<User> getMethodName(@RequestParam String username) {
-        
-        User user = userService.findByUsername(username);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<User> getUserByUsername(@RequestParam String username) {
+        Optional<User> userOptional = userService.findByUsername(username);
+
+        return userOptional.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+  
     
 
 
@@ -117,17 +117,15 @@ public class UserController {
     
     
     
-    @PostMapping({"/register", "/create_user"})
+    @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
         try {
             userService.save(user);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "User registered successfully!");
-            return ResponseEntity.ok(response);
+            var successResponse = Map.of("message", "User registered successfully!");
+            return ResponseEntity.ok(successResponse);
         } catch (Exception e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Registration failed: " + e.getMessage());
-            return ResponseEntity.status(400).body(response);
+            var errorResponse = Map.of("message", "Registration failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }
     
