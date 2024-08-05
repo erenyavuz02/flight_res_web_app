@@ -1,0 +1,145 @@
+
+
+.passenger-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+}
+
+.passenger-form-group {
+    display: block;
+    max-width: -webkit-fill-available;
+    margin: 10px;
+    background-color:  rgb(219 18 18 / 15%);
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.passenger-form-instruction {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.passenger-form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.passenger-form-input .passenger-form-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.passenger-form-field {
+    margin-bottom: 15px;
+}
+
+
+.passenger-container {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+}
+
+
+.results-column {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+    margin-right: 10px;
+}
+
+.flight-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    background: #fff;
+}
+
+.flight-card.selected {
+    border: 2px solid #007bff;
+    background-color: #e3f2fd;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.flight-results-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.flight-results-column {
+    width: 48%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #f9f9f9;
+}
+
+.cabin {
+    display: inline-block;
+    border: 1px solid #ddd;
+    margin-right: 15px;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #f3f4f7, #e1e5ee);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cabin:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cabin.selected {
+    border: 2px solid #007bff;
+    background-color: #e3f2fd;
+}
+
+
+.search-container {
+    display: flex;
+    padding-left: 20%;
+    padding-right: 20%;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.passenger-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    width: 75%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}

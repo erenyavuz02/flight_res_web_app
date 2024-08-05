@@ -1,0 +1,59 @@
+
+/* Styles for the reservation form */
+.flight_search_form {
+    max-width: 400px; /* Set a maximum width for the form */
+    margin: 0 auto; /* Center the form horizontally */
+    background: #fff; /* White background color */
+    padding: 20px; /* Add padding around the form content */
+    border-radius: 8px; /* Rounded corners for the form */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+}
+
+/* Styles for form labels */
+.flight_search_form label {
+    display: block; /* Make the labels behave like block-level elements */
+    margin-bottom: 10px; /* Add margin between labels and input fields */
+}
+
+/* Styles for form input fields */
+.flight_search_form input, .flight_search_form select {
+    width: 100%; /* Make the input fields take up the full width */
+    padding: 10px; /* Add padding around the input fields */
+    margin-bottom: 10px; /* Add margin between input fields */
+    border: 1px solid #ccc; /* Add a border around the input fields */
+    border-radius: 4px; /* Rounded corners for the input fields */
+}
+
+/* Styles for the form submit button */
+.flight_search_form button {
+    width: 100%; /* Make the button take up the full width */
+    padding: 10px; /* Add padding around the button */
+    border: none; /* Remove the border from the button */
+    background-color: #007bff; /* Blue background color for the button */
+    color: #fff; /* White text color for the button */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer; /* Change the cursor to a pointer on hover */
+}
+
+/* Styles for the form submit button when hovered */
+.flight_search_form button:hover {
+    background-color: #0056b3; /* Darker blue background color for the button on hover */
+}
+
+
+.passenger-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+
+.passenger-card{
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        /* Styles for the login page */
+        
+        /* Set the background of the body to cover the entire viewport */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/images/login_page.jpg') no-repeat center center fixed;
+            background-size: cover;
+            flex-direction: column;
+        }
+        .logo-container {
+            margin-bottom: 20px; /* Adjust margin as needed */
+        }
+
+        .logo-container img {
+            max-width: 100px; /* Adjust max-width as needed */
+        }
+        /* Styles for the login container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        
+        /* Styles for the login form */
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Styles for the labels */
+        .login-container label {
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        
+        /* Styles for the input fields */
+        .login-container input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        
+        /* Styles for the login button */
+        .login-container button {
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        /* Styles for the login button when hovered */
+        .login-container button:hover {
+            background: #0056b3;
+        }
+        
+        .register-link {
+        display: block;
+        margin-top: 10px;
+        background-color: white;
+        color: rgba(255, 0, 0, 0.5);
+        
+        border-radius: 25px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .register-link:hover {
+            background-color: rgba(255, 0, 0, 0.394);
+            color: white;
+            border-color: darkred;
+        }    
+        
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <h1>Best Airlines</h1>
+    </div>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form onsubmit="event.preventDefault(); loginUser();">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <a href="register.html" class="register-link">Register if you do not have an account</a>
+    </div>
+
+    <script>
+        /**
+         * Function to handle user login
+         */
+        function loginUser() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            
+            // Send a POST request to the server with the username and password
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, password: password })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();  // or response.json() based on your actual response type
+                } else {
+                    response.text().then(body => {
+                        alert(body);
+                    });
+                    
+                    throw new Error('Login failed');
+                }
+            })
+            .then(data => {
+                console.log('Server response:', data);  // Debugging statement
+                if (data === 'Login successful!') {
+                    alert('Login successful!');
+                    window.location.href = '/main_page.html'; // Redirect to the main page
+                } else {
+                    alert('Invalid username or password.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
+

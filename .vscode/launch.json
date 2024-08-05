@@ -51,7 +51,8 @@
             "mainClass": "com.hitit.project.microservices.flight_app.FlightAppApplication",
             "projectName": "flight_app",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59798 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=flight_app"
         },
         {
             "type": "java",
@@ -60,6 +61,17 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "com.hitit.project.microservices.reservation_app.ReservationAppApplication",
             "projectName": "reservation_app",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59811 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=reservation_app"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-WebServerApplication<web_server>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.hitit.project.microservices.web_server.WebServerApplication",
+            "projectName": "web_server",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

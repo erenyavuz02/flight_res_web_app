@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Reservation</title>
+
+
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/main_page.css">
+    <link rel="stylesheet" href="css/flight_search.css">
+
+    <script src= "js/main_page.js"></script>
+    <script src= "js/list_flights.js"></script>
+    <script src= "js/passenger_info.js"></script>
+    <script src= "js/payment.js"></script>
+    <script src= "js/search_flights.js"></script>
+    <script src = "js/pnr_search.js"></script>
+    <script src = "js/user_management.js"></script>
+
+</head>
+<body>
+    <div id="menu">
+        <!-- Menu links -->
+        <a href="#reservation" onclick="showPage('reservation')">Reservation</a>
+        <a href="#pnr_search" onclick="showPage('pnr_search')">PNR Search</a>
+        <a href="#user_mng" onclick="showPage('user_mng')">User Management</a>
+    </div>
+    <div id="content">
+        <!-- Pages -->
+
+        <div id="reservation" class="page active">
+            <h1>Flight Reservation</h1>
+            <!-- Reservation form -->
+            <form 
+            id="flightReservationForm" 
+            onsubmit="event.preventDefault(); searchFlights(event);" 
+            class = "flight_search_form">
+
+                <!-- Form fields -->
+                <label for="tripType">Trip Type:</label>
+                <select id="tripType" name="tripType">
+                    <option value="oneWay">One Way</option>
+                    <option value="roundTrip">Round Trip</option>
+                </select>
+                <label for="departurePort">Departure Port:</label>
+                <select id="departurePort" name="departurePort">
+                    <!-- Options will be dynamically populated -->
+                </select>
+                <label for="arrivalPort">Arrival Port:</label>
+                <select id="arrivalPort" name="arrivalPort">
+                    <!-- Options will be dynamically populated -->
+                </select>
+                <label for="departureDate">Departure Date:</label>
+                <input type="date" id="departureDate" name="departureDate" >
+
+                <label for="returnDate">Return Date:</label>
+                <input type="date" id="returnDate" name="returnDate">
+
+                <label for="adults">Adults:</label>
+                <input type="number" id="adults" name="adults" min="1" value="1" style="max-width: -webkit-fill-available;">
+                <label for="children">Children:</label>
+                <input type="number" id="children" name="children" min="0" value="0" style="max-width: -webkit-fill-available;">
+                <label for="infants">Infants:</label>
+                <input type="number" id="infants" name="infants" min="0" value="0" style="max-width: -webkit-fill-available;">
+                <button type="submit" >Search Flights</button>
+            </form>
+        </div> 
+
+        <div id="pnr_search" class="page">
+            <div id ="pnr_search_container" class = "search-container">
+                
+                <h1>PNR Search</h1>
+                <p>PNR search page content.</p>
+                <input type="text" id="pnr_code_search" placeholder="Enter PNR code">
+                <button id="searchPNR" onclick="search_by_PNR()">Search</button>
+
+            </div>
+        </div>
+        <div id="user_mng" class="page">
+            <h1>User Management</h1>
+            <form id="addUserForm" onsubmit="addUser(event)">
+                <h2>Add New User</h2>
+                <label for="username_add">Username:</label>
+                <input type="text" id="username_add" name="username_add" required>
+                <label for="email_add">Email:</label>
+                <input type="text" id="email_add" name="email_add" required>
+                <label for="password_add">Password:</label>
+                <input type="password" id="password_add" name="password_add" required>
+                <label for="password_add_again">Confirm Password:</label>
+                <input type="password" id="password_add_again" name="password_add_again" required>
+                <button type="button" id="addUserButton" onclick="addUser(event)">Add User</button>
+            </form>
+            <form id="deleteUserForm" onsubmit="deleteUser(event)">
+                <h2>Delete User</h2>
+                <label for="deleteUsername">Username:</label>
+                <input type="text" id="deleteUsername" name="deleteUsername" required>
+                <button type="button" id="deleteUserButton" onclick="deleteUser(event)">Delete User</button>
+            </form>
+        </div>
+
+        <div id="flight_results" class="page">
+            <h1>Flight Results</h1>
+            <div class="flight-results-container">
+                <div id="departureFlightResults" class="flight-results-column">
+                    <h2>Departure Flights</h2>
+                </div>
+                <div id="returnFlightResults" class="flight-results-column">
+                    <h2>Return Flights</h2>
+                </div>
+            </div>
+            
+            <div id="totalPriceContainer">
+                <span>Total Price: <span id="totalPrice">0</span></span>
+            </div>
+            
+            <button id="nextButton" onclick="goToPassengerInfo()">Next</button>
+        </div>
+
+ 
+
+        <div id="passenger_info" class="page" >
+            <h1>Submit Passenger Information</h1>
+            <p>Passenger information page content.</p>
+
+            <div  id = "passenger-form-container" class = "passenger-form-container"> </div>
+
+            <button type="submit" onclick="collectPassengerInfo()" style="margin-left: 20px;">Submit</button>
+        </div>
+
+        <div id="payment" class="page">
+            <h1>Complete Payment</h1>
+            <div id="flight-details-container">
+
+            </div>
+            <h2>Passenger Details</h2>
+            <div id="passenger-details-container">
+                
+            </div>
+        </div>
+
+        <div id="reservationInfo" class="page">
+            <h1>Reservation Information</h1>
+            <div id="reservationInfo-FlightsContainer"> </div>
+            <div id="reservationInfo-PassengersContainer"> </div>
+        </div>
+        
+    </div>
+
+    <div id="custom-alert" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="close-btn" onclick="closeCustomAlert()">&times;</span>
+            <p id="custom-alert-message"></p>
+            <button onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
