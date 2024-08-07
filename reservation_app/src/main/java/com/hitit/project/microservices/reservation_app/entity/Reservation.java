@@ -24,14 +24,5 @@ public class Reservation {
     
     private Long u_id;
 
-
-
-
-
-
-
-    
-
-
     
 }

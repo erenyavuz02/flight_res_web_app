@@ -7,19 +7,11 @@ import java.time.LocalTime;
 
 import lombok.Data;
 
-@Entity
-@Data
 public class Flight {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long f_id;
     private LocalDate date;
     private LocalTime time;
-    @ManyToOne
-    @JoinColumn(name = "departure_port_id")
     private Port departurePort;
-    @ManyToOne
-    @JoinColumn(name = "arrival_port_id")
     private Port arrivalPort;
 
     public Flight() {

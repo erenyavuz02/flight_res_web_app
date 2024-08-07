@@ -1,6 +1,8 @@
 package com.hitit.project.microservices.reservation_app.service.APIService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,15 +14,29 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class FlightAPIService {
-    private final String BASE_URL = "${user.api.url}";
+    private String host;
+    private String port;
+    private String baseUrl;
+
+    
 
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Flight findById(Long flightId){
-        
 
-        String url = BASE_URL + "get?flightId=" + flightId;
+    @Autowired
+    public FlightAPIService(Environment env) {
+        host = env.getProperty("flight.api.host");
+        port = env.getProperty("flight.api.port");
+        this.baseUrl = "http://" + host + ":" + port + "/api/flights/";
+    }
+
+    public Flight findById(Long flightId){
+
+
+        String url = baseUrl + "searchByFlightId?flightId=" + flightId;
+
+        System.out.println(url);
 
          try {
             Mono<Flight> response = webClientBuilder
@@ -33,15 +49,17 @@ public class FlightAPIService {
             return response.block();
         } catch (WebClientResponseException ex) {
             //TODO: create custom exception
-            throw new RuntimeException("Flight not found");
+            throw new RuntimeException("Flight not found " + ex.getMessage());
         }
 
 
     }
 
 
-    public ResponseEntity<String> decreaseAvailableSeats(Long flightId, String cabin){
-        String url = BASE_URL + "decreaseAvailableSeats?flightId=" + flightId + "&cabin=" + cabin;
+    public ResponseEntity<String> decreaseAvailableSeats(Long flightId, String cabin) {
+        String url = baseUrl + "decreaseAvailableSeats?flightId=" + flightId + "&cabin=" + cabin;
+
+        System.out.println(url);
 
         try {
             Mono<ResponseEntity<String>> response = webClientBuilder
@@ -54,7 +72,7 @@ public class FlightAPIService {
             return response.block();
         } catch (WebClientResponseException ex) {
             //TODO: create custom exception
-            throw new RuntimeException("Something went wrong");
+            throw new RuntimeException( "Something went wrong: " + ex.getMessage() );
         }
     }
     

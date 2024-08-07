@@ -39,4 +39,10 @@ public class ReservedFlightController {
 
         return reservedFlight != null ? ResponseEntity.ok(reservedFlight) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/getReservedFlightsByPnrCode")
+    public List<ReservedFlight> getReservedFlightsByPnrCode(@RequestParam("PNR_code") String PNR) {
+
+        return reservedFlightService.getReservedFlightsByPnrCode(PNR);
+    }
 }

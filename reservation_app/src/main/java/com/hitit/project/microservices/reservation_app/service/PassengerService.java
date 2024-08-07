@@ -49,7 +49,7 @@ public class PassengerService {
     public Passenger save(PassengerRequest passengerRequest, Reservation reservation) {
 
         Passenger passenger = new Passenger();
-        passenger.setReservation(reservation);
+        passenger.setPNR(reservation.getPNR());
         passenger.setPassportNo(passengerRequest.getPassportNo());
         passenger.setName(passengerRequest.getName());
         passenger.setSurname(passengerRequest.getSurname());
@@ -73,7 +73,7 @@ public class PassengerService {
     public List<Passenger> findByReservation(Reservation reservation) {
 
 
-        return passengerRepository.findByReservation(reservation);
+        return passengerRepository.findByPNR(reservation.getPNR());
     }
 
     /**
@@ -82,7 +82,7 @@ public class PassengerService {
      */
     public void deletePassengersByReservation(Reservation reservation) {
 
-        passengerRepository.deleteByReservation(reservation);
+        passengerRepository.deleteByPNR(reservation.getPNR());
     }
 
     /**

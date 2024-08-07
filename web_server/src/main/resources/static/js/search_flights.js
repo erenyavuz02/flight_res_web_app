@@ -1,8 +1,17 @@
 // Assuming the endpoint '/api/ports' returns JSON array of ports
 // Fetch the list of ports from the server
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/ports/get_ports')
-        .then(response => response.json())
+    fetch(config.flight_app.url + '/api/ports/get_ports')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             const departurePortSelect = document.getElementById('departurePort');
             const arrivalPortSelect = document.getElementById('arrivalPort');
@@ -19,13 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         })
         .catch(error => {
+            console.error('Error fetching ports:', error.message);
             console.error('Error fetching ports:', error);
         });
 });
 
 
-//TODO: change the name of it
-document.getElementById('nextButton').disabled = true; // Initially disable the Next button
 
 
 
@@ -50,7 +58,7 @@ function searchFlights(event) {
     var children = form.children.value;
     var infants = form.infants.value;
 
-   
+   passengers_count = [];
 
     passengers_count.push({ type: 'Adult', count: adults });
     passengers_count.push({ type: 'Child', count: children });
@@ -59,7 +67,7 @@ function searchFlights(event) {
     console.log('Trip Type:', tripType.value);
     console.log(departurePort, arrivalPort, departureDate, adults, children, infants);
     
-    fetch('/api/flights/search', {
+    fetch(config.flight_app.url + '/api/flights/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -80,7 +88,7 @@ function searchFlights(event) {
         if (tripType.value === 'roundTrip') {
             // Fetch return flights if round-trip is selected
             console.log('Round-trip selected, fetching return flights...');
-            fetch('/api/flights/search', {
+            fetch(config.flight_app.url + '/api/flights/search', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -113,7 +113,7 @@
     </div>
 
     <script src="./js/config.js"></script>
-    <script type ="text/javascript">
+    <script>
         /**
          * Function to handle user login
          */
@@ -124,7 +124,7 @@
             var password = document.getElementById('password').value;
             
             // Send a POST request to the server with the username and password
-            fetch('${config.user_app.url}/login', {
+            fetch(config.user_app.url + '/api/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -146,6 +146,8 @@
                 console.log('Server response:', data);  // Debugging statement
                 if (data === 'Login successful!') {
                     alert('Login successful!');
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('password', password);
                     window.location.href = '/main_page.html'; // Redirect to the main page
                 } else {
                     alert('Invalid username or password.');

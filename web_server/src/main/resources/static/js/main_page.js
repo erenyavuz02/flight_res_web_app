@@ -8,7 +8,7 @@
 var passengers_count = [];
 
 function checkSession() {
-    fetch('/checkSession')
+    fetch('api/user/checkSession')
         .then(response => response.text())
         .then(data => {
             if (data === 'Logged in') {
@@ -19,10 +19,10 @@ function checkSession() {
         })
         .catch(error => {
             console.error('Error:', error);
-            window.location.href = 'login.html';
+            //window.location.href = 'login.html';
         });
 }
-checkSession();
+//checkSession();
 
 
 // Function to show a specific page

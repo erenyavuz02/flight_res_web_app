@@ -41,7 +41,7 @@ public class ReservedFlightService {
         if (reservation == null) {
             throw new IllegalArgumentException("Reservation not found");
         }
-        ReservedFlight reservedFlight = new ReservedFlight(reservation, flight, cabin);
+        ReservedFlight reservedFlight = new ReservedFlight(reservation.getPNR(), flightId, cabin);
         try {
             reservedFlightRepository.save(reservedFlight);
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class ReservedFlightService {
 
     public void deleteReservedFlightsByReservation(Reservation reservation) {
 
-        reservedFlightRepository.deleteByReservation(reservation);
+        reservedFlightRepository.deleteByPNR(reservation.getPNR());
     }
 
 

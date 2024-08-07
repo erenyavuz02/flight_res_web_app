@@ -58,8 +58,8 @@ public class PassengerController {
             Passenger savedPassenger = passengerService.save(passengerRequest, reservation);
 
             reservedFlightService.getReservedFlightsByPnrCode(reservation.getPNR()).forEach(reservedFlight -> {
-                System.out.println("DEcreasing seats of Flight id: " + reservedFlight.getFlight().getF_id() + " with Cabin: " + reservedFlight.getCabin());
-                flightAPIService.decreaseAvailableSeats(reservedFlight.getFlight().getF_id(), reservedFlight.getCabin());
+                System.out.println("Decreasing seats of Flight id: " + reservedFlight.getFlightId()  + " with Cabin: " + reservedFlight.getCabin());
+                flightAPIService.decreaseAvailableSeats(reservedFlight.getFlightId(), reservedFlight.getCabin());
             });
 
             return ResponseEntity.ok(savedPassenger);
@@ -85,8 +85,7 @@ public class PassengerController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deletePassenger(@RequestParam String pnr_code, @RequestParam String passportNo) {
         try {
-            Reservation reservation = reservationService.findByPNR(pnr_code);
-            PassengerID passengerID = new PassengerID(reservation, passportNo);
+            PassengerID passengerID = new PassengerID(pnr_code, passportNo);
             passengerService.deletePassenger(passengerID);
         } catch (Exception e) {
             // TODO: handle exception

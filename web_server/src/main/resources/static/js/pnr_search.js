@@ -37,7 +37,7 @@ function showReservationInfobyPNR(PNR_code) {
 
 //this function gets flights and details of a reservation by using its PNR code
 async function fetchFlightsByPnrCode(pnrCode) {
-    const response = await fetch(`/api/flights/searchByPNR?pnr_code=${encodeURIComponent(pnrCode)}`);
+    const response = await fetch(config.flight_app.url + `/api/flights/searchByPNR?pnr_code=${encodeURIComponent(pnrCode)}`);
     if (!response.ok) {
         throw new Error('Network response was not ok.');
     }

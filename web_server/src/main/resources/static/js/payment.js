@@ -18,10 +18,21 @@ function showPaymentPage() {
 
 
 
+
 async function create_reservation() {
     try {
-        const response = await fetch('/api/reservation/create_reservation', {
-            method: 'POST'
+        const username = sessionStorage.getItem('username');
+        const password = sessionStorage.getItem('password');
+
+        const response = await fetch(config.reservation_app.url + '/api/reservation/create_reservation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
         });
 
         if (!response.ok) {
@@ -38,6 +49,7 @@ async function create_reservation() {
         return null; // or handle the error as needed
     }
 }
+
 
 function listFlightDetails() {
 
@@ -161,7 +173,7 @@ function showTotalPrice() {
 
 
 function ticketReservation() {
-  const url = `/api/reservation/ticket_reservation?pnr_code=${PNR_code}`;
+  const url =config.reservation_app.url + `/api/reservation/ticket_reservation?pnr_code=${PNR_code}`;
 
   fetch(url, {
     method: 'POST'

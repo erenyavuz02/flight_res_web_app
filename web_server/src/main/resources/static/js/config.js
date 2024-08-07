@@ -11,7 +11,7 @@ const config = {
 
     reservation_app: {
         url: 'http://localhost:8092',
-    },
+    }
 
 };
 

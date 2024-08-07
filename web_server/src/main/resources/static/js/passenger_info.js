@@ -227,7 +227,7 @@ function validatePassengerData(passenger) {
 }
 
 async function reserveFlight(PNR, flightId, cabin) {
-    const url = '/api/reservedFlight/reserveFlight';
+    const url = config.reservation_app.url + '/api/reservedFlight/reserveFlight';
     const params = new URLSearchParams();
     params.append('PNR_code', PNR);
     params.append('flightId', flightId);
@@ -263,7 +263,7 @@ function sendPassengerInfo(pnr_code) {
         console.log(passenger);
 
 
-        fetch('/api/passenger/create', {
+        fetch( config.reservation_app.url + '/api/passenger/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

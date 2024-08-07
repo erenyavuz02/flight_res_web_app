@@ -3,62 +3,33 @@ package com.hitit.project.microservices.reservation_app.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.transaction.Transactional;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @IdClass(ReservedFlightID.class)
+@Transactional
+@Getter
+@Setter
 public class ReservedFlight {
-    
+
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "PNR", referencedColumnName = "pnr")
-    private Reservation reservation;
+    private String PNR;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "f_id", referencedColumnName = "f_id")
-    private Flight flight;
+    private Long flightId;
 
     private String cabin;
 
 
     public ReservedFlight() {}
 
-    public ReservedFlight(Reservation reservation, Flight flight, String cabin) {
-        this.reservation = reservation;
-        this.flight = flight;
+    public ReservedFlight(String PNR, Long flightId, String cabin) {
+        this.PNR = PNR;
+        this.flightId = flightId;
         this.cabin = cabin;
-    }
-
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
-
-    public String getCabin() {
-        return cabin;
-    }
-
-    public void setCabin(String cabin) {
-        this.cabin = cabin;
-    }
-
-    @Override
-    public String toString() {
-        return "ReservedFlight [reservation=" + reservation + ", flight=" + flight + ", cabin=" + cabin + "]";
     }
 
 

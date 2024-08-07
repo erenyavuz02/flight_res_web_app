@@ -109,9 +109,8 @@
         </form>
         <a href="login.html" class="login-link">Login if you already have an account</a>
     </div>
-
+    <script src="./js/config.js"></script>
     <script>
-        import { config } from './js/config.js';
 
         /**
          * Function to register a new user.
@@ -121,11 +120,13 @@
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
             var email = document.getElementById('email').value;
+            name = "trialname"
+            surname = "trialsurname"
 
-            var userData = JSON.stringify({ username: username, password: password, email: email });
+            var userData = JSON.stringify({ username: username, password: password, email: email, name: name, surname: surname });
             console.log(userData); // Log the data to be sent
 
-            fetch('${config.user_app.url}/register', {
+            fetch(config.user_app.url + '/api/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

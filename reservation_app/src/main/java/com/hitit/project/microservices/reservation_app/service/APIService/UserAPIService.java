@@ -2,6 +2,7 @@ package com.hitit.project.microservices.reservation_app.service.APIService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
@@ -17,11 +18,19 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class UserAPIService {
     
-    @Value("${user.api.url}")
+    private String host;
+    private String port;
     private String baseUrl;
 
     @Autowired
     private WebClient.Builder webClientBuilder;
+
+    @Autowired
+    public UserAPIService(Environment env) {
+        host = env.getProperty("user.api.host");
+        port = env.getProperty("user.api.port");
+        this.baseUrl = "http://" + host + ":" + port + "/api/user/";
+    }
 
     public User findByUsername(String username){
         
