@@ -55,10 +55,14 @@ public class ReservedFlightService {
 
         List<Long> flightIds = reservedFlightRepository.getFlightIdsByPnrCode(pnr_code);
         List<Flight> flights = new ArrayList<>();
+        System.out.println("Fetching flights for reservation: " + pnr_code);
         for (Long flightId : flightIds) {
+
             Flight flight = flightAPIService.findById(flightId);
+            System.out.println("Flight info: " + flight);
             flights.add(flight);
         }
+        System.out.println("Flights are fetched for reservation: " + pnr_code);
         return flights;
     }
 

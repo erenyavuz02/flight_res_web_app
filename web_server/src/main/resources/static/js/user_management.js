@@ -12,11 +12,13 @@ function addUser() {
     username: formData.get('username_add'),
     password: formData.get('password_add'),
     email: formData.get('email_add'),
+    name: formData.get('name_add'),
+    surname: formData.get('surname_add'),
   };
 
   console.log(user);
 
-  fetch('/create_user', {
+  fetch(config.user_app.url + '/api/user/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

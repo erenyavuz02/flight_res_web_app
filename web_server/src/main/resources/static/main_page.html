@@ -79,6 +79,7 @@
 
             </div>
         </div>
+        
         <div id="user_mng" class="page">
             <h1>User Management</h1>
             <form id="addUserForm" onsubmit="addUser(event)">
@@ -90,7 +91,11 @@
                 <label for="password_add">Password:</label>
                 <input type="password" id="password_add" name="password_add" required>
                 <label for="password_add_again">Confirm Password:</label>
-                <input type="password" id="password_add_again" name="password_add_again" required>
+                <input type="password" id="password_add_again" name="password_add_again" required><br>
+                <label for="name_add">Name:</label>
+                <input type="text" id="name_add" name="name_add" required><br>
+                <label for="surname_add">Surname:</label>
+                <input type="text" id="surname_add" name="surname_add" required><br>
                 <button type="button" id="addUserButton" onclick="addUser(event)">Add User</button>
             </form>
             <form id="deleteUserForm" onsubmit="deleteUser(event)">

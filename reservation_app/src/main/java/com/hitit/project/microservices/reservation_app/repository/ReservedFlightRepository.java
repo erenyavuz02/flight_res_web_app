@@ -17,7 +17,7 @@ import com.hitit.project.microservices.reservation_app.entity.ReservedFlightID;
 public interface ReservedFlightRepository extends JpaRepository<ReservedFlight, ReservedFlightID> {
 
 
-    @Query(value = "SELECT f_id FROM reserved_flight WHERE pnr = ?1", nativeQuery = true)
+    @Query(value = "SELECT flight_id FROM reserved_flight WHERE pnr = ?1", nativeQuery = true)
     List<Long> getFlightIdsByPnrCode(String pnr_code);
  
 
@@ -26,6 +26,5 @@ public interface ReservedFlightRepository extends JpaRepository<ReservedFlight, 
 
 
     void deleteByPNR(String pnr);
-    
     
 }

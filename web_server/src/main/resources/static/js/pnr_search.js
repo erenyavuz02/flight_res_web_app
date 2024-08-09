@@ -37,7 +37,9 @@ function showReservationInfobyPNR(PNR_code) {
 
 //this function gets flights and details of a reservation by using its PNR code
 async function fetchFlightsByPnrCode(pnrCode) {
-    const response = await fetch(config.flight_app.url + `/api/flights/searchByPNR?pnr_code=${encodeURIComponent(pnrCode)}`);
+    const response = await fetch(config.reservation_app.url + `/api/reservedFlight/getFlightsByPnrCode?PNR_code=${encodeURIComponent(pnrCode)}`, {
+        method: 'GET',
+    });
     if (!response.ok) {
         throw new Error('Network response was not ok.');
     }
@@ -77,7 +79,7 @@ function displayFlights(flights) {
 
 //this function gets flights and details of a reservation by using its PNR code
 function fetchPassengersByPnrCode(pnrCode) {
-    fetch(`/api/passenger/searchByPNR?pnr_code=${encodeURIComponent(pnrCode)}`)
+    fetch(config.reservation_app.url + `/api/passenger/searchByPNR?pnr_code=${encodeURIComponent(pnrCode)}`)
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -149,7 +151,7 @@ function deleteReservation() {
 
 
 
-    fetch(`/api/reservation/delete_reservation?pnr_code=${encodeURIComponent(PNR_code)}`, {
+    fetch(config.reservation_app.url + `/api/reservation/delete_reservation?pnr_code=${encodeURIComponent(PNR_code)}`, {
         method: 'DELETE',
     })
         .then(response => {
@@ -166,7 +168,7 @@ function deleteReservation() {
 function cancelPassenger(passenger) {
 
 
-    fetch(`/api/passenger/delete?pnr_code=${encodeURIComponent(PNR_code)}&passportNo=${encodeURIComponent(passenger.passportNo)}`, {
+    fetch(config.reservation_app.url + `/api/passenger/delete?pnr_code=${encodeURIComponent(PNR_code)}&passportNo=${encodeURIComponent(passenger.passportNo)}`, {
 
 
         method: 'DELETE',

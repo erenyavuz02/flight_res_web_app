@@ -28,13 +28,13 @@ public class FlightAPIService {
     public FlightAPIService(Environment env) {
         host = env.getProperty("flight.api.host");
         port = env.getProperty("flight.api.port");
-        this.baseUrl = "http://" + host + ":" + port + "/api/flights/";
+        this.baseUrl = "http://" + host + ":" + port ;
     }
 
     public Flight findById(Long flightId){
 
 
-        String url = baseUrl + "searchByFlightId?flightId=" + flightId;
+        String url = baseUrl + "/api/flights/" +  "searchByFlightId?flightId=" + flightId;
 
         System.out.println(url);
 
@@ -57,7 +57,7 @@ public class FlightAPIService {
 
 
     public ResponseEntity<String> decreaseAvailableSeats(Long flightId, String cabin) {
-        String url = baseUrl + "decreaseAvailableSeats?flightId=" + flightId + "&cabin=" + cabin;
+        String url = baseUrl +"/api/flightDetails/" +  "decreaseAvailableSeats?flightId=" + flightId + "&cabin=" + cabin;
 
         System.out.println(url);
 
