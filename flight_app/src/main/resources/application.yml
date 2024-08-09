@@ -2,11 +2,6 @@ spring:
     application:
             name: flight_app
     config:
-        import: optional:configserver:http://localhost:8888
+        import: optional:configserver:http://configserver:8888
 
 
-reservation:
-    api:
-        host: reservation 
-        port: 8092
-        url: http://${reservation.api.host}:${reservation.api.port}/api/flights/  

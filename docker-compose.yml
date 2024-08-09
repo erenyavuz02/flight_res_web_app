@@ -88,7 +88,30 @@ services:
       - microservices-net
     depends_on:
       - config
+  
+  flight:
+    image: flight_app_flight_project:latest
+    container_name: flight
+    ports: 
+      - 8091:8091
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+      - eureka
 
+  reservation:
+    image: reservation_app_flight_project:latest
+    container_name: reservation
+    ports: 
+      - 8092:8092
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+      - eureka
+
+      
 networks:
   microservices-net:
     # Use bridge network driver
