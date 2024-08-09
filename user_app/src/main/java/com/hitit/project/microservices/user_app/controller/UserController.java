@@ -135,6 +135,7 @@ public class UserController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Map<String, String>> delete(@RequestParam("userName") String userName) {
+        System.out.println("User deletion request received for username: " + userName);
         try {
             userService.deleteByUsername(userName);
             Map<String, String> response = new HashMap<>();

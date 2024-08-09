@@ -39,7 +39,7 @@ function addUser() {
 
 function deleteUser() {
   const username = document.getElementById('deleteUsername').value;
-  const url = `/delete?userName=${username}`;
+  const url = config.user_app.url + `/api/user/delete?userName=${username}`;
 
   fetch(url, {
     method: 'DELETE',

@@ -62,10 +62,11 @@ services:
       - microservices-net
 
   config:
-    image: configserver1:latest
+    image: config-server_flight_project:latest
     container_name: configserver
     networks:
       - microservices-net
+
 
   eureka:
     image: eureka-server:latest
@@ -76,9 +77,17 @@ services:
       - microservices-net
     depends_on:
       - config
-    environment:
-      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8888
       
+
+  user:
+    image: user_app_flight_project:latest
+    container_name: user
+    ports: 
+      - 8090:8090
+    networks:
+      - microservices-net
+    depends_on:
+      - config
 
 networks:
   microservices-net:
