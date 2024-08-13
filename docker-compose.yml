@@ -111,10 +111,38 @@ services:
       - config
       - eureka
 
-      
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    ports:
+      - 8080:8080
+      - 9090:9090
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    command: start-dev
+    networks:
+      - microservices-net
+    depends_on:
+      - db
+
+  gateway:
+    image: gateway:latest
+    container_name: gateway
+    ports: 
+      - 8222:8222
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+      - eureka
+
 networks:
   microservices-net:
     # Use bridge network driver
     driver: bridge
+
 volumes:
+  keycloak-data:
   db:

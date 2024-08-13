@@ -1,55 +1,49 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [
-    {
-     "ename": "",
-     "evalue": "",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[1;31mRunning cells with 'Python 3.12.4' requires the ipykernel package.\n",
-      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
-      "\u001b[1;31mCommand: 'c:/Users/staj_eren.yavuz/AppData/Local/Programs/Python/Python312/python.exe -m pip install ipykernel -U --user --force-reinstall'"
-     ]
-    }
-   ],
-   "source": [
-    "# Create a list of ten 10s\n",
-    "elements = [10] * 10\n",
-    "\n",
-    "# Perform the operation in a for loop\n",
-    "for i in range(10):\n",
-    "    # Decrease the value of every element by 0.1 of its value\n",
-    "    elements = [x - 0.1 * x for x in elements]\n",
-    "    \n",
-    "    # Decrease the elements between the index of i and 0 once more\n",
-    "    for j in range(i + 1):\n",
-    "        elements[j] -= 0.1 * elements[j]\n",
-    "    \n",
-    "    # Calculate the total of the elements and print out\n",
-    "    total = sum(elements)\n",
-    "    print(f\"Total after iteration {i + 1}: {total}\")\n",
-    "\n",
-    "# Final total after all iterations\n",
-    "final_total = sum(elements)\n",
-    "print(f\"Final total: {final_total}\")\n"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "name": "python",
-   "version": "3.12.4"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 2
-}
+import yfinance as yf
+
+# Define the stock symbol and period
+symbol = "AAPL"  # Apple Inc. as an example
+period = "1y"    # 1 year of data
+
+# Fetch historical data
+stock_data = yf.download(symbol, period=period)
+
+# Function to determine gain/loss
+def gain_or_loss(open_price, close_price):
+    change_percent = (close_price - open_price) / open_price * 100
+    if change_percent >= 1:
+        return 'gain'
+    elif change_percent <= -1:
+        return 'loss'
+    else:
+        return 'neutral'
+
+# Experiment parameters
+n = 10  # Number of experiments
+
+# List to track the number of days for each experiment
+day_counts = []
+
+for i in range(n):
+    gains = 0
+    losses = 0
+    day_count = 0
+    
+    for index, row in stock_data.iterrows():
+        open_price = row['Open']
+        close_price = row['Close']
+        
+        result = gain_or_loss(open_price, close_price)
+        day_count += 1
+        
+        if result == 'gain':
+            gains += 1
+        elif result == 'loss':
+            losses += 1
+        
+        if gains > losses:
+            break
+    
+    day_counts.append(day_count)
+    print(f"Experiment {i+1}: {day_count} days")
+
+print("\nTotal day counts in each experiment:", day_counts)
