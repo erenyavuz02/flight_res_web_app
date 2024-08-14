@@ -6,17 +6,31 @@ spring:
                   uri: http://user:8090
                   predicates:
                     - Path=/api/user/** 
-                - id: flight_app
+                    
+                - id: flight_app_flights
                   uri: http://flight:8091
                   predicates:
                     - Path=/api/flights/**
+                - id: flight_app_ports
+                  uri: http://flight:8091
+                  predicates:
                     - Path=/api/ports/**
+                - id: flight_app_flightDetails
+                  uri: http://flight:8091
+                  predicates:
                     - Path=/api/flightDetails/**
-                - id: reservation_app
+
+                - id: reservation_app_passenger
+                  uri: http://reservation:8092
+                  predicates:
+                    - Path=/api/passenger/**
+                - id: reservation_app_reservation
                   uri: http://reservation:8092
                   predicates:
                     - Path=/api/reservation/**
-                    - Path=/api/passenger/**
+                - id: reservation_app_reserved_flight
+                  uri: http://reservation:8092
+                  predicates:
                     - Path=/api/reservedFlight/**
             discovery:
                 locator:

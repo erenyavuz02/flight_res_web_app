@@ -137,6 +137,9 @@ services:
     depends_on:
       - config
       - eureka
+      - user
+      - flight
+      - reservation
 
 networks:
   microservices-net:

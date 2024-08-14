@@ -3,7 +3,8 @@ spring:
         name: gateway
     config:
         import: optional:configserver:http://configserver:8888
-
+    main:
+        web-application-type: reactive
 management:
     endpoints:
         web:
@@ -12,7 +13,5 @@ management:
     endpoint:
         gateway:
             enabled: true
-    metrics:
-        enabled: true
     tracing:
         enabled: true
